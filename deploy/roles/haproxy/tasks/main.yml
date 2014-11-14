@@ -1,0 +1,12 @@
+---
+- name: install haproxy
+  yum: name={{ item }} state=latest
+  with_items:
+    - haproxy
+
+- name: configure haproxy
+  copy: src=haproxy.cfg dest=/etc/haproxy/haproxy.cfg
+  notify: reload haproxy
+
+- name: start haproxy
+  service: name=haproxy state=started

@@ -1,0 +1,7 @@
+---
+- name: ensure base state
+  hosts: test
+  sudo: yes
+  roles:
+    - haproxy
+    - synapse

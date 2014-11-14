@@ -1,0 +1,37 @@
+{
+  "services": {
+    "elasticsearch": {
+      "default_servers": [{
+        "name": "elasticsearch",
+        "host": "127.0.0.1",
+        "port": "9200"
+      }],
+      "discovery": {
+        "method": "ec2tag",
+        "tag_name": "product-env-component",
+        "tag_value": "targetinglibrary-qa-search",
+        "aws_access_key_id": "...",
+        "aws_secret_access_key": "...",
+        "aws_region": "us-west-2"
+      },
+      "haproxy": {
+        "port": "9200",
+        "server_port_override": "9200"
+      }
+    }
+  },
+  "haproxy": {
+    "global": [
+      "daemon",
+      "maxconn 256"
+    ],
+    "defaults": [
+      "mode http",
+      "timeout connect 5000ms",
+      "timeout client 50000ms",
+      "timeout server 50000ms"
+    ],
+    "config_file_path": "/etc/haproxy/haproxy.cfg",
+    "reload_command": "/usr/bin/systemctl reload haproxy.service"
+  }
+}
